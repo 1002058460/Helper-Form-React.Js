@@ -1,0 +1,45 @@
+.availability {
+    background: #ADD8E6;
+    border-radius: 25px;
+    width: 90px;
+    border: 2px solid #007fff;
+    padding: 5px;
+    color: #007fff;
+    text-align: center;
+}
+
+.skills {
+    border-radius: 25px;
+    width: 100px;
+    border: 2px solid #ff6600;
+    color: #ff6600;
+    text-align: center;
+}
+
+.thatButton {
+    display: flex;
+    justify-content: center;
+}
+.scroll {
+    max-height: 500;
+    overflow: auto;
+}
+
+.roundimg {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+table {
+    width:100%;
+}
+
+.row {
+    display: flex;
+}
+  
+.column {
+    flex: 50%;
+    padding: 5px;
+}
