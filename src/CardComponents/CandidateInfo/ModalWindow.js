@@ -22,7 +22,10 @@ const style = {
   p: 4,
 };
 
-export default function ModalWindow() {
+export default function ModalWindow(props) {
+
+  const { candidateInfo, setCandidateInfo } = props;
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -30,15 +33,17 @@ export default function ModalWindow() {
 
   const handleSubmit = async event => {
     event.preventDefault();
-
-    await axios.put(`http://localhost:5001/alexcandidate`, {
+    console.log(candidateInfo);
+    await axios.put(`http://localhost:5001/alexcandidate/${candidateInfo.id}`, {
       status
     })
       .then(res => {
         console.log(res);
         console.log(res.data)
-              })
-     }
+        
+        setOpen(false);
+      })
+  }
 
   return (
     <div>
@@ -54,25 +59,25 @@ export default function ModalWindow() {
             Change Status
           </Typography>
           <FormControl fullWidth>
-                        <InputLabel>Marital Status</InputLabel>
-                        <Select
-                          name="status"
-                          label="Status"
-                          value={status}
-                          onChange={event => setStatus(event.target.value)}
-                          required
-                        >
-                          <MenuItem value={"AVAILABLE"}>Available</MenuItem>
-                          <MenuItem value={"RESERVED"}>Reserved</MenuItem>
-                          <MenuItem value={"CONFIRMED"}>Confirmed</MenuItem>
-                          <MenuItem value={"INACTIVE"}>Inactive</MenuItem>
-                        </Select>
-                      </FormControl>
-                      <br/>
-                      <Stack spacing={2} direction="row">
-                      <Button onClick={handleClose}>Cancel</Button>
-                      <Button type="submit" variant="contained" onClick={handleSubmit}>Save</Button>
-                      </Stack>
+            <InputLabel>Change Status</InputLabel>
+            <Select
+              name="status"
+              label="Status"
+              value={status}
+              onChange={event => setStatus(event.target.value)}
+              required
+            >
+              <MenuItem value={"AVAILABLE"}>Available</MenuItem>
+              <MenuItem value={"RESERVED"}>Reserved</MenuItem>
+              <MenuItem value={"CONFIRMED"}>Confirmed</MenuItem>
+              <MenuItem value={"INACTIVE"}>Inactive</MenuItem>
+            </Select>
+          </FormControl>
+          <br />
+          <Stack spacing={2} direction="row">
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button type="submit" variant="contained" onClick={handleSubmit}>Save</Button>
+          </Stack>
         </Box>
       </Modal>
     </div>

@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import ModalSkills from './ModalSkills';
 
 
 export default class CandidateSkills extends React.Component {
@@ -250,7 +251,7 @@ export default class CandidateSkills extends React.Component {
                             </div>
                         </div>
                         <br/>
-                        <Button variant="contained">Edit</Button>
+                        <ModalSkills />
                     </Typography>
                 </Paper>
 

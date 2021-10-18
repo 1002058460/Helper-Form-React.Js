@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import ModalProfile from './ModalProfile';
 
 
 export default class CandidateProfile extends React.Component {
@@ -57,7 +58,7 @@ export default class CandidateProfile extends React.Component {
                             </tr>
                         </table>
                         <br/>
-                        <Button variant="contained">Edit</Button>
+                        <ModalProfile />
                     </Typography>
                 </Paper>
 

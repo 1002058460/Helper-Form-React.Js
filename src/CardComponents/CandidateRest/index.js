@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-
+import ModalRest from './ModalRest';
 
 export default class CandidateRest extends React.Component {
     state = {
@@ -40,7 +40,7 @@ export default class CandidateRest extends React.Component {
                                     </tr>
                                 </table>
                                 <br/>
-                        <Button variant="contained">Edit</Button>
+                        <ModalRest />
                             </div>
                         </div>
                     </Typography>

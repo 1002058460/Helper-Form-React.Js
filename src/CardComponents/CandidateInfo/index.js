@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import axios from 'axios';
 import Typography from '@mui/material/Typography';
@@ -10,92 +10,99 @@ import Stack from '@mui/material/Stack';
 import ModalWindow from './ModalWindow';
 import ModalBiodata from './ModalBiodata';
 
-export default class CandidateInfo extends React.Component {
-    state = {
-        persons: [],
+export default function CandidateInfo() {
+
+    const person = {
+        fullName: '',
+        skills: '',
     }
 
-    componentDidMount() {
-        axios.get(`http://localhost:5001/alexcandidate`)
-            .then(res => {
-                const persons = res.data;
-                this.setState({ persons });
-            })
-    }
+    const [candidateInfo, setCandidateInfo] = React.useState(person);
 
-    render() {
-        const { persons } = this.state
-        return (
-            <Container component="main">
-                <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
+    useEffect(() => {
 
-                    <Grid container>
-                        <img className="roundimg" src={"https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"}></img>
+        const loadData = async () => {
+            await axios.get(`http://localhost:5001/alexcandidate`)
+                .then(res => {
+                    const candidateInfo = res.data;
+                    setCandidateInfo(candidateInfo);
+                });
+        }
 
-                        <Typography component="h1" variant="h6">
-                            <b style={{ marginLeft: "10px" }}>{persons.fullName}</b>
-                        </Typography>
+        loadData();
 
-                        <Typography color="text.secondary">
-                            <br />
-                            <div style={{ marginBottom: "50px", marginLeft: "-40px", marginTop: "20px" }}>
-                                ID: {persons.id}
-                            </div>
-                            <div className="skills">{persons.skills}</div>
-                        </Typography>
+    }, []);
+
+    return (
+        <Container component="main">
+            <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
+
+                <Grid container>
+                    <img className="roundimg" src={"https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"}></img>
+
+                    <Typography component="h1" variant="h6">
+                        <b style={{ marginLeft: "10px" }}>{candidateInfo.fullName}</b>
+                    </Typography>
+
+                    <Typography color="text.secondary">
+                        <br />
+                        <div style={{ marginBottom: "50px", marginLeft: "-40px", marginTop: "20px" }}>
+                            ID: {candidateInfo.id}
+                        </div>
+                        <div className="skills">{candidateInfo.skills}</div>
+                    </Typography>
+                    <Typography>
+                        <div className="availability">{candidateInfo.status}</div>
+                    </Typography>
+                    <div style={{ marginLeft: "200px" }}>
+                        <iframe width="420" height="345" src="https://www.youtube.com/embed/tgbNymZ7vqY">
+                        </iframe></div>
+                </Grid>
+                <div style={{ marginTop: "-150px" }}>
+                    <Grid item xs={6}>
                         <Typography>
-                            <div className="availability">{persons.status}</div>
-                        </Typography>
-                        <div style={{ marginLeft: "200px" }}>
-                            <iframe width="420" height="345" src="https://www.youtube.com/embed/tgbNymZ7vqY">
-                            </iframe></div>
-                    </Grid>
-                    <div style={{ marginTop: "-150px" }}>
-                        <Grid item xs={6}>
-                            <Typography>
                             <Button variant="outlined">Download</Button>
-                                <hr />
-                                <table>
-                                    <tr>
-                                        <td><b>Passport status:</b></td>
-                                        <td>{persons.passportStatus}</td>
-                                        <td><b>Pocket Money:</b></td>
-                                        <td>${persons.pocketMoney}</td>
+                            <hr />
+                            <table>
+                                <tr>
+                                    <td><b>Passport status:</b></td>
+                                    <td>{candidateInfo.passportStatus}</td>
+                                    <td><b>Pocket Money:</b></td>
+                                    <td>${candidateInfo.pocketMoney}</td>
 
-                                    </tr>
-                                    <tr>
-                                        <td><b>Bio fee:</b></td>
-                                        <td>${persons.bioFee}</td>
-                                        <td><b>Minimum salary:</b></td>
-                                        <td>${persons.minimumSalary}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Loan:</b></td>
-                                        <td>${persons.loan}</td>
-                                        <td><b>Marital status:</b></td>
-                                        <td>{persons.maritalStatus}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Date of Birth:</b></td>
-                                        <td>{persons.dateOfBirth}</td>
-                                        <td><b>Experience in Sg:</b></td>
-                                        <td>{persons.experienceInSG}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Place of Birth:</b></td>
-                                        <td>{persons.placeOfBirth}</td>
-                                    </tr>
-                                </table>
-                                <Stack spacing={2} direction="row">
-                                <ModalWindow />
+                                </tr>
+                                <tr>
+                                    <td><b>Bio fee:</b></td>
+                                    <td>${candidateInfo.bioFee}</td>
+                                    <td><b>Minimum salary:</b></td>
+                                    <td>${candidateInfo.minimumSalary}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Loan:</b></td>
+                                    <td>${candidateInfo.loan}</td>
+                                    <td><b>Marital status:</b></td>
+                                    <td>{candidateInfo.maritalStatus}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Date of Birth:</b></td>
+                                    <td>{candidateInfo.dateOfBirth}</td>
+                                    <td><b>Experience in Sg:</b></td>
+                                    <td>{candidateInfo.experienceInSG}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Place of Birth:</b></td>
+                                    <td>{candidateInfo.placeOfBirth}</td>
+                                </tr>
+                            </table>
+                            <Stack spacing={2} direction="row">
+                                <ModalWindow candidateInfo={candidateInfo} setCandidateInfo={setCandidateInfo}/>
                                 <ModalBiodata />
-                                </Stack>
-                            </Typography>
-                        </Grid>
-                    </div>
-                </Paper>
+                            </Stack>
+                        </Typography>
+                    </Grid>
+                </div>
+            </Paper>
 
-            </Container>
-        )
-    }
+        </Container>
+    )
 }

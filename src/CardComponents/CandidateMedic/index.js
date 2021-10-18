@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-
+import ModalMedic from './ModalMedic';
 
 export default class PersonList extends React.Component {
     state = {
@@ -94,7 +94,7 @@ export default class PersonList extends React.Component {
                             </div>
                         </div>
                         <br/>
-                        <Button variant="contained">Edit</Button>
+                        <ModalMedic />
                     </Typography>
                 </Paper>
             </Container>
