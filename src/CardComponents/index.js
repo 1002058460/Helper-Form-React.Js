@@ -52,7 +52,7 @@ export default class PersonList extends React.Component {
                         </Button>
                     </Link>
                 </div>
-                
+
                 <CandidateInfo />
                 <CandidateProfile />
                 <CandidateMedic />

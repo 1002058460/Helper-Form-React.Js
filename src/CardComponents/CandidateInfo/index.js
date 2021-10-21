@@ -12,12 +12,7 @@ import ModalBiodata from './ModalBiodata';
 
 export default function CandidateInfo() {
 
-    const person = {
-        fullName: '',
-        skills: '',
-    }
-
-    const [candidateInfo, setCandidateInfo] = React.useState(person);
+    const [candidateInfo, setCandidateInfo] = React.useState('');
 
     useEffect(() => {
 
@@ -95,8 +90,8 @@ export default function CandidateInfo() {
                                 </tr>
                             </table>
                             <Stack spacing={2} direction="row">
-                                <ModalWindow candidateInfo={candidateInfo} setCandidateInfo={setCandidateInfo}/>
-                                <ModalBiodata />
+                                <ModalWindow candidateInfo={candidateInfo} setCandidateInfo={setCandidateInfo} />
+                                <ModalBiodata candidateInfo={candidateInfo} setCandidateInfo={setCandidateInfo} />
                             </Stack>
                         </Typography>
                     </Grid>

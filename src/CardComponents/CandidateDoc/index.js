@@ -18,6 +18,10 @@ export default class CandidateDoc extends React.Component {
                         You can upload up to 5 documents<br /><br />
                         <Button startIcon={<AddIcon />}>
                             Add Document
+                            <input
+                                type="file"
+                                hidden
+                            />
                         </Button>
                     </Typography>
                 </Paper>

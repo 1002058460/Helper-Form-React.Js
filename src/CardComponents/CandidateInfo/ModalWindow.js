@@ -33,14 +33,15 @@ export default function ModalWindow(props) {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    console.log(candidateInfo);
     await axios.put(`http://localhost:5001/alexcandidate/${candidateInfo.id}`, {
       status
     })
       .then(res => {
-        console.log(res);
         console.log(res.data)
-        
+
+        const result = res.data;
+        setCandidateInfo(result);
+
         setOpen(false);
       })
   }
