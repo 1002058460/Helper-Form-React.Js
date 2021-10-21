@@ -9,8 +9,10 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import ModalWindow from './ModalWindow';
 import ModalBiodata from './ModalBiodata';
+import { CSVLink, CSVDownload } from 'react-csv';
 
 export default function CandidateInfo() {
+
 
     const [candidateInfo, setCandidateInfo] = React.useState('');
 
@@ -27,6 +29,14 @@ export default function CandidateInfo() {
         loadData();
 
     }, []);
+
+    const csvData = [
+        ['Passport status:', candidateInfo.passportStatus, 'Pocket Money:', candidateInfo.pocketMoney],
+        ['Bio fee:', candidateInfo.bioFee, 'Minimum salary:', candidateInfo.minimumSalary],
+        ['Loan:', candidateInfo.loan, 'Marital status:', candidateInfo.maritalStatus],
+        ['Date of Birth:', candidateInfo.dateOfBirth, 'Experience in Sg:', candidateInfo.experienceInSG],
+        ['Place of Birth:', candidateInfo.placeOfBirth]
+    ];
 
     return (
         <Container component="main">
@@ -56,7 +66,7 @@ export default function CandidateInfo() {
                 <div style={{ marginTop: "-150px" }}>
                     <Grid item xs={6}>
                         <Typography>
-                            <Button variant="outlined">Download</Button>
+                            <Button variant="outlined"><CSVLink data={csvData} >Export to CSV</CSVLink></Button>
                             <hr />
                             <table>
                                 <tr>
