@@ -1,7 +1,9 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const bodyParser = require("body-parser");
 const db = require('./models');
+const { sequelize } = require('./models');
 const { candidate } = require("./models");
 const { medicalHistory } = require("./models");
 const { skillsSEA } = require("./models");
@@ -9,7 +11,8 @@ const { skillsTCEA } = require("./models");
 
 const main = async () => {
   const app = express();
-  app.use(express.json());
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.json());
   app.use(cors());
   const PORT = 5001;
   app.post("/candidate", (req, res) => {
@@ -98,7 +101,7 @@ const main = async () => {
       });
   })
 
-    app.get('/alexcandidate', (req, res) => {
+  app.get('/alexcandidate', (req, res) => {
     candidate.findByPk(1)
       .then((candidate) => {
         res.send(candidate);
@@ -110,25 +113,32 @@ const main = async () => {
 
   app.put('/alexcandidate/:id', async (req, res) => {
     const { id } = req.params;
-    const { status } = req.body;
+    const { status, photo, linkVideo, passportStatus: passport, bioFee, loan, pocketMoney, minimumSalary, maritalStatus,
+      experienceInSG: exsg, remarks, fullName, dateOfBirth, placeOfBirth, height, weight, nationality,
+      phoneNumber, address, port, religion, education: edu, siblings, ageOfChild: aoc,
+      remarkFood: remar, } = req.body;
+    
+    const result = await candidate.findOne({ where: { id: id } });
 
-    candidate.findByPk(1)
-      .then((candidate) => {
-        res.send(candidate);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (!result) {
+      return res.send('id not found');
+    }
 
-    // const candidate = await candidate.findByPk(id);
+    try {
+      const transaction = await sequelize.transaction();
+      
+      const update = await result.update({ status, photo, linkVideo, passportStatus: passport, bioFee, loan, pocketMoney, minimumSalary, maritalStatus,
+        experienceInSG: exsg, remarks, fullName, dateOfBirth, placeOfBirth, height, weight, nationality,
+        phoneNumber, address, port, religion, education: edu, siblings, ageOfChild: aoc,
+        remarkFood: remar, });
 
-    // if (!candidate) {
-    //   res.send({ result: 'error' });
-    // }
+      await transaction.commit();
 
-    // await candidate.update({status: status});
-
-    // return res.send(candidate);
+      return res.send(update);
+    } catch (e) {
+      console.log(e);
+      return res.send(e);
+    }
   })
 
   app.get('/alexmedical', (req, res) => {
@@ -141,6 +151,32 @@ const main = async () => {
       });
   })
 
+  app.put('/alexmedical/:id', async (req, res) => {
+    const { id } = req.params;
+    const { allergies, mentalIllness: mental, epilepsy, asthma, diabetes, hypertension: hyper, tubercolosis: tbc, heartDisease: heart,
+      malaria, operations, otherIllness: othersIll, disabilities, diet, pork, beef, otherFoods: othersFood, preference, remarkFood} = req.body;
+    
+    const result = await medicalHistory.findOne({ where: { id: id } });
+
+    if (!result) {
+      return res.send('id not found');
+    }
+
+    try {
+      const transaction = await sequelize.transaction();
+      
+      const update = await result.update({ allergies, mentalIllness: mental, epilepsy, asthma, diabetes, hypertension: hyper, tubercolosis: tbc, heartDisease: heart,
+        malaria, operations, otherIllness: othersIll, disabilities, diet, pork, beef, otherFoods: othersFood, preference, remarkFood });
+
+      await transaction.commit();
+
+      return res.send(update);
+    } catch (e) {
+      console.log(e);
+      return res.send(e);
+    }
+  })
+
   app.get('/alexskillsSEA', (req, res) => {
     skillsSEA.findByPk(1)
       .then((skillsSEA) => {
@@ -151,6 +187,34 @@ const main = async () => {
       });
   })
 
+  app.put('/alexskillsSEA/:id', async (req, res) => {
+    const { id } = req.params;
+    const { infants1, infants2, infantsText, careElderly1, careElderly2, careElderlyText, careDisabled1, careDisabled2,
+      careDisabledText, genHouse1, genHouse2, genHouseText, cooking1, cooking2, cookingText, lang1, lang2,
+      langText1, langText2, otherSkills1, otherSkills2, otherSkillsText1, otherSkillsText2,} = req.body;
+    
+    const result = await skillsSEA.findOne({ where: { id: id } });
+
+    if (!result) {
+      return res.send('id not found');
+    }
+
+    try {
+      const transaction = await sequelize.transaction();
+      
+      const update = await result.update({ infants1, infants2, infantsText, careElderly1, careElderly2, careElderlyText, careDisabled1, careDisabled2,
+        careDisabledText, genHouse1, genHouse2, genHouseText, cooking1, cooking2, cookingText, lang1, lang2,
+        langText1, langText2, otherSkills1, otherSkills2, otherSkillsText1, otherSkillsText2, });
+
+      await transaction.commit();
+
+      return res.send(update);
+    } catch (e) {
+      console.log(e);
+      return res.send(e);
+    }
+  })
+
   app.get('/alexskillsTCEA', (req, res) => {
     skillsTCEA.findByPk(1)
       .then((skillsTCEA) => {
@@ -159,6 +223,34 @@ const main = async () => {
       .catch((err) => {
         console.log(err);
       });
+  })
+
+  app.put('/alexskillsTCEA/:id', async (req, res) => {
+    const { id } = req.params;
+    const { infants3, infants4, infantsTextB, careElderly3, careElderly4, careElderlyTextB, careDisabled3, careDisabled4,
+      careDisabledTextB, genHouse3, genHouse4, genHouseTextB, cooking3, cooking4, cookingTextB, lang3, lang4,
+      langText3, langText4, otherSkills3, otherSkills4, otherSkillsText3, otherSkillsText4,} = req.body;
+    
+    const result = await skillsTCEA.findOne({ where: { id: id } });
+
+    if (!result) {
+      return res.send('id not found');
+    }
+
+    try {
+      const transaction = await sequelize.transaction();
+      
+      const update = await result.update({ infants3, infants4, infantsTextB, careElderly3, careElderly4, careElderlyTextB, careDisabled3, careDisabled4,
+        careDisabledTextB, genHouse3, genHouse4, genHouseTextB, cooking3, cooking4, cookingTextB, lang3, lang4,
+        langText3, langText4, otherSkills3, otherSkills4, otherSkillsText3, otherSkillsText4,});
+
+      await transaction.commit();
+
+      return res.send(update);
+    } catch (e) {
+      console.log(e);
+      return res.send(e);
+    }
   })
 
   db.sequelize.sync().then((req) => {
