@@ -15,6 +15,9 @@ import Grid from '@mui/material/Grid';
 import AddIcon from '@material-ui/icons/Add';
 import './style.css';
 import PersonList from './CardComponents';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import Drawer from "@material-ui/core/Drawer";
+import FontDownloadIcon from '@mui/icons-material/FontDownload';
 
 
 export default class List extends React.Component {
@@ -46,18 +49,32 @@ export default class List extends React.Component {
     render() {
         return (
             <Container component="main">
+                <Drawer
+                    open="true"
+                    variant="persistent"
+                    anchor="left"
+                >
+                    <Container>
+                        <Link to="/" underline="none"><FontDownloadIcon /></Link> <br />
+                        <Link to="/Job" underline="none"><AccountBoxIcon /></Link>
+                    </Container>
+                </Drawer>
                 <Typography component="h1" variant="h5">
                     <b>Helpers (Card View)</b>
                 </Typography>
                 <Typography color="text.secondary">
                     Displays the data of all helper with card view
                 </Typography>
+
                 <div align="right">
                     <Link to="/Main" underline="none"><Button startIcon={<AddIcon />} variant="contained">
                         add helper
                     </Button>
                     </Link>
                 </div>
+                <br />
+
+
                 <Paper variant="outlined" className="scroll" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
 
                     <Grid container spacing={3}>
