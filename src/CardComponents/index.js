@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import axios from 'axios';
 import { Link } from "react-router-dom";
@@ -15,21 +15,23 @@ import CandidateSkills from './CandidateSkills';
 import CandidateMedic from './CandidateMedic';
 
 
-export default class PersonList extends React.Component {
-    state = {
-        persons: [],
-    }
+export default function CandidateIndex() {
 
-    componentDidMount() {
-        axios.get(`http://localhost:5001/alexcandidate`)
-            .then(res => {
-                const persons = res.data;
-                this.setState({ persons });
-            })
-    }
+    const [candidateProfile, setCandidateProfile] = React.useState('');
 
-    render() {
-        const { persons } = this.state
+    useEffect(() => {
+
+        const loadData = async () => {
+            await axios.get(`http://localhost:5001/alexcandidate`)
+                .then(res => {
+                    const candidateProfile = res.data;
+                    setCandidateProfile(candidateProfile);
+                });
+        }
+
+        loadData();
+
+    }, []);
         return (
             <Container component="main">
                 <Typography component="h1" variant="h5">
@@ -43,7 +45,7 @@ export default class PersonList extends React.Component {
                     <Link to="/" underline="none">
                         Candidates-card
                     </Link>
-                    /{persons.fullName}
+                    /{candidateProfile.fullName}
                 </Typography>
                 <div>
                     <Link to="/" underline="none">
@@ -62,4 +64,4 @@ export default class PersonList extends React.Component {
             </Container>
         )
     }
-}
+
