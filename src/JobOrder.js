@@ -117,98 +117,82 @@ export default function App() {
         setOpen(false);
     }
 
+    const clearFormErrors = () => {
+        setHelperCodeError('');
+        setHelperCodeErr(false);
+        setEmpNameError('');
+        setEmpNameErr(false);
+        setFdwError('');
+        setFdwErr(false);
+        setRaceError('');
+        setRaceErr(false);
+        setSalaryError('');
+        setSalaryErr(false);
+        setDaysOffError('');
+        setDaysOffErr(false);
+        setProbationError('');
+        setProbationErr(false);
+        setHouseTypeError('');
+        setHouseTypeErr(false);
+        setHelperNameSignError("");
+        setHelperNameSignErr(false);
+        setEmpNameSignError("");
+        setEmpNameSignErr(false);
+    };
+
     const handleSubmit = async event => {
         event.preventDefault();
+        clearFormErrors();
         let ret = true;
         if (!helperCode || !helperCode.trim()) {
             setHelperCodeError('Please enter Code');
             setHelperCodeErr(true);
             ret = false;
         }
-        else {
-            setHelperCodeError('');
-            setHelperCodeErr(false);
-        }
         if (!empName || !empName.trim()) {
             setEmpNameError('Please enter Name of Employer');
             setEmpNameErr(true);
             ret = false;
-        }
-        else {
-            setEmpNameError('');
-            setEmpNameErr(false);
         }
         if (!fdw || !fdw.trim()) {
             setFdwError('Please enter Name of FDW');
             setFdwErr(true);
             ret = false;
         }
-        else {
-            setFdwError('');
-            setFdwErr(false);
-        }
         if (!race) {
             setRaceError("Please enter Employer's Race");
             setRaceErr(true);
             ret = false;
-        }
-        else {
-            setRaceError('');
-            setRaceErr(false);
         }
         if (!salary || !salary.trim()) {
             setSalaryError('Please enter Salary');
             setSalaryErr(true);
             ret = false;
         }
-        else {
-            setSalaryError('');
-            setSalaryErr(false);
-        }
         if (!daysOff || !daysOff.trim()) {
             setDaysOffError('Please enter Day(s) Off');
             setDaysOffErr(true);
             ret = false;
-        }
-        else {
-            setDaysOffError('');
-            setDaysOffErr(false);
         }
         if (!probation) {
             setProbationError('Please enter Probation');
             setProbationErr(true);
             ret = false;
         }
-        else {
-            setProbationError('');
-            setProbationErr(false);
-        }
         if (!houseType) {
             setHouseTypeError('Please enter Type Of House');
             setHouseTypeErr(true);
             ret = false;
-        }
-        else {
-            setHouseTypeError('');
-            setHouseTypeErr(false);
         }
         if (!helperNameSign) {
             setHelperNameSignError("Please enter Helper's Name");
             setHelperNameSignErr(true);
             ret = false;
         }
-        else {
-            setHelperNameSignError("");
-            setHelperNameSignErr(false);
-        }
         if (!empNameSign) {
             setEmpNameSignError("Please enter Employer's Name");
             setEmpNameSignErr(true);
             ret = false;
-        }
-        else {
-            setEmpNameSignError("");
-            setEmpNameSignErr(false);
         }
 
         if (!ret) {
