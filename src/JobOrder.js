@@ -54,20 +54,28 @@ export default function App() {
     const classes = useStyles();
     const [helperCode, setHelperCode] = React.useState('');
     const [helperCodeError, setHelperCodeError] = React.useState('');
+    const [helperCodeErr, setHelperCodeErr] = React.useState(false);
     const [empName, setEmpName] = React.useState('');
     const [empNameError, setEmpNameError] = React.useState('');
+    const [empNameErr, setEmpNameErr] = React.useState(false);
     const [fdw, setFdw] = React.useState('');
     const [fdwError, setFdwError] = React.useState('');
+    const [fdwErr, setFdwErr] = React.useState(false);
     const [race, setRace] = React.useState('');
     const [raceError, setRaceError] = React.useState('');
+    const [raceErr, setRaceErr] = React.useState(false);
     const [salary, setSalary] = React.useState('');
     const [salaryError, setSalaryError] = React.useState('');
+    const [salaryErr, setSalaryErr] = React.useState(false);
     const [daysOff, setDaysOff] = React.useState('');
     const [daysOffError, setDaysOffError] = React.useState('');
+    const [daysOffErr, setDaysOffErr] = React.useState(false);
     const [probation, setProbation] = React.useState('');
     const [probationError, setProbationError] = React.useState('');
+    const [probationErr, setProbationErr] = React.useState(false);
     const [houseType, setHouseType] = React.useState('');
     const [houseTypeError, setHouseTypeError] = React.useState('');
+    const [houseTypeErr, setHouseTypeErr] = React.useState(false);
     const [bedroom, setBedroom] = React.useState('');
     const [toilet, setToilet] = React.useState('');
     const [family, setFamily] = React.useState('');
@@ -91,8 +99,10 @@ export default function App() {
     const [jobRemarks, setJobRemarks] = React.useState('');
     const [helperNameSign, setHelperNameSign] = React.useState('');
     const [helperNameSignError, setHelperNameSignError] = React.useState('');
+    const [helperNameSignErr, setHelperNameSignErr] = React.useState(false);
     const [empNameSign, setEmpNameSign] = React.useState('');
     const [empNameSignError, setEmpNameSignError] = React.useState('');
+    const [empNameSignErr, setEmpNameSignErr] = React.useState(false);
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -112,49 +122,99 @@ export default function App() {
         let ret = true;
         if (!helperCode || !helperCode.trim()) {
             setHelperCodeError('Please enter Code');
+            setHelperCodeErr(true);
             ret = false;
+        }
+        else {
+            setHelperCodeError('');
+            setHelperCodeErr(false);
         }
         if (!empName || !empName.trim()) {
             setEmpNameError('Please enter Name of Employer');
+            setEmpNameErr(true);
             ret = false;
+        }
+        else {
+            setEmpNameError('');
+            setEmpNameErr(false);
         }
         if (!fdw || !fdw.trim()) {
             setFdwError('Please enter Name of FDW');
+            setFdwErr(true);
             ret = false;
+        }
+        else {
+            setFdwError('');
+            setFdwErr(false);
         }
         if (!race) {
             setRaceError("Please enter Employer's Race");
+            setRaceErr(true);
             ret = false;
+        }
+        else {
+            setRaceError('');
+            setRaceErr(false);
         }
         if (!salary || !salary.trim()) {
             setSalaryError('Please enter Salary');
+            setSalaryErr(true);
             ret = false;
+        }
+        else {
+            setSalaryError('');
+            setSalaryErr(false);
         }
         if (!daysOff || !daysOff.trim()) {
             setDaysOffError('Please enter Day(s) Off');
+            setDaysOffErr(true);
             ret = false;
+        }
+        else {
+            setDaysOffError('');
+            setDaysOffErr(false);
         }
         if (!probation) {
             setProbationError('Please enter Probation');
+            setProbationErr(true);
             ret = false;
+        }
+        else {
+            setProbationError('');
+            setProbationErr(false);
         }
         if (!houseType) {
             setHouseTypeError('Please enter Type Of House');
+            setHouseTypeErr(true);
             ret = false;
+        }
+        else {
+            setHouseTypeError('');
+            setHouseTypeErr(false);
         }
         if (!helperNameSign) {
             setHelperNameSignError("Please enter Helper's Name");
+            setHelperNameSignErr(true);
             ret = false;
+        }
+        else {
+            setHelperNameSignError("");
+            setHelperNameSignErr(false);
         }
         if (!empNameSign) {
             setEmpNameSignError("Please enter Employer's Name");
+            setEmpNameSignErr(true);
             ret = false;
+        }
+        else {
+            setEmpNameSignError("");
+            setEmpNameSignErr(false);
         }
 
         if (!ret) {
             return;
         }
-        
+
         await axios.post(`http://localhost:5002/job`, {
             helperCode, empName, fdw, race, salary, daysOff, probation, houseType, bedroom, toilet, family, babies,
             childBelow12, childBelow5, fetchChild, downstairs, busOnly, lookElderly, healthy, assist, bedridden, generalHouseWork,
@@ -189,7 +249,7 @@ export default function App() {
                                                     label="Helper Code"
                                                     value={helperCode}
                                                     required
-                                                    error={helperCodeError !== ''}
+                                                    error={helperCodeErr}
                                                     helperText={helperCodeError}
                                                     onChange={event => setHelperCode(event.target.value)}
                                                 />
@@ -201,7 +261,7 @@ export default function App() {
                                                     label="Name of Employer"
                                                     value={empName}
                                                     required
-                                                    error={empNameError !== ''}
+                                                    error={empNameErr}
                                                     helperText={empNameError}
                                                     onChange={event => setEmpName(event.target.value)}
                                                 />
@@ -213,7 +273,7 @@ export default function App() {
                                                     label="Name of FDW"
                                                     value={fdw}
                                                     required
-                                                    error={fdwError !== ''}
+                                                    error={fdwErr}
                                                     helperText={fdwError}
                                                     onChange={event => setFdw(event.target.value)}
                                                 />
@@ -226,7 +286,7 @@ export default function App() {
                                                         <Select
                                                             name="race"
                                                             label="Employer's Race"
-                                                            error={raceError !== ''}
+                                                            error={raceErr}
                                                             helperText={raceError}
                                                             value={race}
                                                             onChange={event => setRace(event.target.value)}
@@ -247,7 +307,7 @@ export default function App() {
                                                     label="Salary"
                                                     value={salary}
                                                     required
-                                                    error={salaryError !== ''}
+                                                    error={salaryErr}
                                                     helperText={salaryError}
                                                     type="number"
                                                     InputProps={{
@@ -263,7 +323,7 @@ export default function App() {
                                                     label="Day(s) Off"
                                                     value={daysOff}
                                                     required
-                                                    error={daysOffError !== ''}
+                                                    error={daysOffErr}
                                                     helperText={daysOffError}
                                                     onChange={event => setDaysOff(event.target.value)}
                                                 />
@@ -275,7 +335,7 @@ export default function App() {
                                                     label="Probation"
                                                     value={probation}
                                                     required
-                                                    error={probationError !== ''}
+                                                    error={probationErr}
                                                     helperText={probationError}
                                                     onChange={event => setProbation(event.target.value)}
                                                 />
@@ -287,7 +347,7 @@ export default function App() {
                                                     label="Type of House"
                                                     value={houseType}
                                                     required
-                                                    error={houseTypeError !== ''}
+                                                    error={houseTypeErr}
                                                     helperText={houseTypeError}
                                                     onChange={event => setHouseType(event.target.value)}
                                                 />
@@ -659,7 +719,7 @@ export default function App() {
                                                     label="Helper's Name"
                                                     value={helperNameSign}
                                                     required
-                                                    error={helperNameSignError !== ''}
+                                                    error={helperNameSignErr}
                                                     helperText={helperNameSignError}
                                                     onChange={event => setHelperNameSign(event.target.value)}
                                                 />
@@ -671,7 +731,7 @@ export default function App() {
                                                     label="Helper's Name"
                                                     value={empNameSign}
                                                     required
-                                                    error={empNameSignError !== ''}
+                                                    error={empNameSignErr}
                                                     helperText={empNameSignError}
                                                     onChange={event => setEmpNameSign(event.target.value)}
                                                 />
