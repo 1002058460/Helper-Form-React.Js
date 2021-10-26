@@ -108,6 +108,7 @@ export default function App() {
     }
 
     const handleSubmit = async event => {
+        event.preventDefault();
         let ret = true;
         if (!helperCode || !helperCode.trim()) {
             setHelperCodeError('Please enter Code');
@@ -153,8 +154,6 @@ export default function App() {
         if (!ret) {
             return;
         }
-        event.preventDefault();
-
         
         await axios.post(`http://localhost:5002/job`, {
             helperCode, empName, fdw, race, salary, daysOff, probation, houseType, bedroom, toilet, family, babies,
