@@ -18,6 +18,7 @@ import PersonList from './CardComponents';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import Drawer from "@material-ui/core/Drawer";
 import FontDownloadIcon from '@mui/icons-material/FontDownload';
+import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
 
 
 export default class List extends React.Component {
@@ -56,7 +57,8 @@ export default class List extends React.Component {
                 >
                     <Container>
                         <Link to="/" underline="none"><FontDownloadIcon /></Link> <br />
-                        <Link to="/Job" underline="none"><AccountBoxIcon /></Link>
+                        <Link to="/Job" underline="none"><AccountBoxIcon /></Link> <br/>
+                        <Link to="/JobOrder" underline="none"><AddToPhotosIcon /></Link>
                     </Container>
                 </Drawer>
                 <Typography component="h1" variant="h5">
